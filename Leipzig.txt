@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV: Leipzig</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles for the body */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f5f7fa; /* Light blue-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        /* Container for the CV */
+        .cv-container {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            border-radius: 1rem; /* Standard rounded corners */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08); /* Soft shadow */
+            max-width: 210mm; /* A4 width */
+            width: 100%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        /* Responsive layout for larger screens */
+        @media (min-width: 768px) {
+            .cv-container {
+                flex-direction: row; /* Two columns on desktop */
+            }
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            background-color: #ffffff; /* White sidebar */
+            color: #333;
+            padding: 2.5rem 2rem;
+            flex: 1; /* Takes one part of the available space */
+            min-width: 280px;
+            text-align: center;
+            border-right: 1px solid #eceff1; /* Subtle right border */
+        }
+        /* Profile image container (optional, can be removed if no image) */
+        .profile-image-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%; /* Circular image */
+            overflow: hidden;
+            border: 4px solid #e0e0e0; /* Light grey border */
+            box-shadow: 0 0 0 2px #cfd8dc, 0 5px 10px rgba(0, 0, 0, 0.05);
+            margin: 0 auto 1.5rem auto;
+            background-color: #f0f2f5; /* Placeholder background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Main content area styling */
+        .main-content {
+            flex: 2; /* Takes two parts of the available space */
+            padding: 2.5rem 3rem;
+            background-color: #ffffff;
+            position: relative;
+        }
+        /* Main heading (name) */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #2c3e50; /* Dark blue-grey */
+            margin-bottom: 0.75rem;
+            font-size: 2.8rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        /* Subtitle/Job Title */
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d; /* Muted grey */
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        /* Section headings */
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.9rem;
+            color: #34495e; /* Darker blue-grey */
+            margin-top: 2.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #e0e0e0; /* Thin separator line */
+            position: relative;
+        }
+        /* Decorative line under main content headings */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #95a5a6; /* Muted grey accent */
+        }
+        /* Sidebar section headings */
+        .sidebar h2 {
+            color: #2c3e50;
+            border-bottom: none;
+            margin-top: 2rem;
+            font-size: 1.4rem;
+            padding-bottom: 0.5rem;
+        }
+        .sidebar h2::after {
+            background-color: #cfd8dc;
+            left: 50%;
+            transform: translateX(-50%); /* Center the line */
+        }
+
+        /* Sub-headings (e.g., job title, degree) */
+        h3 {
+            font-weight: 500;
+            font-size: 1.25rem;
+            color: #333;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        /* Sidebar sub-headings */
+        .sidebar h3 {
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        /* Paragraph and list item text */
+        p, li {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #555;
+        }
+        /* Sidebar paragraph and list item text */
+        .sidebar p, .sidebar li {
+            color: #555;
+        }
+
+        /* Contact information section */
+        .contact-info {
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        .contact-info svg {
+            margin-right: 0.8rem;
+            color: #95a5a6; /* Muted grey for icons */
+            width: 22px;
+            height: 22px;
+        }
+        
+        /* Skills and Languages wrapper */
+        .skills-languages-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* Individual skill/language item */
+        .skill-item, .language-item {
+            margin-bottom: 1.2rem;
+        }
+        /* Progress bar container (optional, can be removed) */
+        .progress-bar-container {
+            background-color: #e0e0e0; /* Light grey background for bar */
+            border-radius: 0.3rem;
+            height: 0.4rem;
+            overflow: hidden;
+            margin-top: 0.4rem;
+        }
+        /* Progress bar fill */
+        .progress-bar {
+            background-color: #95a5a6; /* Muted grey fill */
+            height: 100%;
+            border-radius: 0.3rem;
+        }
+        /* Skill level text (e.g., "Napredno") */
+        .skill-level-text {
+            font-size: 0.9rem;
+            color: #777;
+            margin-top: 0.25rem;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* Experience, Education, Project, etc. item styling */
+        .experience-item, .education-item, .project-item, .certification-item, .volunteer-item {
+            margin-bottom: 2.8rem;
+            padding-bottom: 1.8rem;
+            border-bottom: 1px dashed #e0e0e0; /* Dashed separator */
+        }
+        /* Remove bottom border for the last item in a section */
+        .experience-item:last-child, .education-item:last-child, .project-item:last-child, .certification-item:last-child, .volunteer-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+        /* Date range text */
+        .date-range {
+            font-size: 1rem;
+            color: #777;
+            margin-top: 0.3rem;
+            font-weight: 400;
+            font-style: italic;
+        }
+        /* List styling */
+        ul {
+            list-style: none; /* Remove default bullet points */
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        /* Custom bullet points */
+        ul li:before {
+            content: "—"; /* Simple dash bullet */
+            color: #95a5a6; /* Muted grey for bullets */
+            display: inline-block;
+            width: 1.2em;
+            margin-left: -1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <div class="sidebar">
+            <div class="profile-image-container">
+                <!-- Placeholder for Profile Image -->
+                <span>Vaša slika</span>
+            </div>
+            <h1>Stefan Stojanović</h1>
+            <p class="subtitle">Full-stack Developer</p>
+
+            <div class="contact-info">
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                    </svg>
+                    stefan.stojanovic@email.com
+                </p>
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.06-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    +381 64 567 890
+                </p>
+                <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                    </svg>
+                    Novi Sad, Srbija
+                </p>
+            </div>
+
+            <div class="skills-languages-wrapper">
+                <div class="skills-list">
+                    <h2 class="text-lg">Vještine</h2>
+                    <div class="skill-item">
+                        <h3>React</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                        <p class="skill-level-text">Napredno</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>Node.js</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 80%;"></div>
+                        </div>
+                        <p class="skill-level-text">Srednje</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>JavaScript (ES6+)</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 98%;"></div>
+                        </div>
+                        <p class="skill-level-text">Ekspert</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>HTML5 & CSS3</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                        <p class="skill-level-text">Napredno</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>MongoDB</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%;"></div>
+                        </div>
+                        <p class="skill-level-text">Srednje</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>Git & GitHub</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 90%;"></div>
+                        </div>
+                        <p class="skill-level-text">Napredno</p>
+                    </div>
+                </div>
+
+                <div class="languages-list">
+                    <h2 class="text-lg">Jezici</h2>
+                    <div class="language-item">
+                        <h3>Srpski</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 100%;"></div>
+                        </div>
+                        <p class="skill-level-text">Maternji</p>
+                    </div>
+                    <div class="language-item">
+                        <h3>Engleski</h3>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 95%;"></div>
+                        </div>
+                        <p class="skill-level-text">Tečno</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h2 class="text-lg">Profesionalni sažetak</h2>
+            <p class="mb-8">
+                Full-stack developer s 3 godine iskustva u razvoju web aplikacija.
+                Fokusiran na čisti kod, performanse i skalabilnost.
+                Posvećen isporuci visokokvalitetnih rješenja.
+            </p>
+
+            <h2 class="text-lg">Radno iskustvo</h2>
+            <div class="experience-item">
+                <h3>Frontend Developer</h3>
+                <p class="text-gray-800">Tech Solutions d.o.o. Novi Sad, Srbija</p>
+                <p class="date-range">2021 - 2024</p>
+                <ul>
+                    <li>Razvoj modularnih React komponenti.</li>
+                    <li>Optimizacija performansi web aplikacija.</li>
+                    <li>Integracija RESTful API-ja.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Junior Web Developer</h3>
+                <p class="text-gray-800">Creative Agency, Novi Sad, Srbija</p>
+                <p class="date-range">2020 - 2021</p>
+                <ul>
+                    <li>Asistiranje u razvoju klijentskih web stranica.</li>
+                    <li>Implementacija responzivnih dizajna.</li>
+                </ul>
+            </div>
+
+            <h2 class="text-lg">Obrazovanje</h2>
+            <div class="education-item">
+                <h3>Diplomirani inženjer informatike</h3>
+                <p class="text-gray-800">Fakultet tehničkih nauka Novi Sad</p>
+                <p class="date-range">2017 - 2021 | GPA: 8.5</p>
+                <ul>
+                    <li>Fokus na softversko inženjerstvo.</li>
+                    <li>Završni rad na temu React uzoraka.</li>
+                </ul>
+            </div>
+
+            <h2 class="text-lg">Projekti</h2>
+            <div class="project-item">
+                <h3>E-commerce Platforma (Osobni Projekt)</h3>
+                <p class="text-gray-800">React, Node.js, MongoDB</p>
+                <p class="date-range">2023 - Trenutno</p>
+                <ul>
+                    <li>Razvoj kompletne e-commerce platforme.</li>
+                    <li>Implementacija Stripe API-ja za plaćanja.</li>
+                </ul>
+            </div>
+
+            <h2 class="text-lg">Certifikati i Nagrade</h2>
+            <div class="certification-item">
+                <h3>Certified React Developer</h3>
+                <p class="text-gray-800">Udemy, Online</p>
+                <p class="date-range">2022</p>
+            </div>
+
+            <h2 class="text-lg">Volontersko iskustvo</h2>
+            <div class="volunteer-item">
+                <h3>Mentor za mlade programere</h3>
+                <p class="text-gray-800">Lokalni IT centar, Novi Sad</p>
+                <p class="date-range">2022 - Trenutno</p>
+                <ul>
+                    <li>Mentoring srednjoškolaca.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
